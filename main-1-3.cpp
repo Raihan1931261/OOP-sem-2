@@ -1,16 +1,15 @@
 #include <iostream>
-using namespace std;
 
 void count_digits(int array[4][4]);
 
 int main() {
-    int matrix[4][4] = {
-        {0, 1, 2, 3},
+    int test[4][4] = {
         {1, 0, 1, 0},
-        {4, 5, 6, 7},
-        {8, 9, 0, 1}
+        {0, 1, 0, 1},
+        {1, 0, 1, 0},
+        {0, 1, 0, 1}
     };
-
-    count_digits(matrix); 
+    
+    count_digits(test);
     return 0;
 }
