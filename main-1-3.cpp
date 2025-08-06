@@ -11,6 +11,6 @@ int main() {
         {8, 9, 0, 1}
     };
 
-    count_digits(matrix);
+    count_digits(matrix); 
     return 0;
 }
