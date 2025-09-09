@@ -3,17 +3,18 @@
 
 #include "Appliance.h"
 
+// Fridge class inherits from Appliance
 class Fridge : public Appliance {
 private:
-    double volume;
+    double volume; // volume in litres
 
 public:
-    Fridge();
-    Fridge(int powerRating, double volume);
+    Fridge(); // default constructor
+    Fridge(int powerRating, double volume); // constructor
     
-    void setVolume(double volume);
-    double getVolume();
-    double getPowerConsumption();
+    void setVolume(double volume); // set volume
+    double getVolume(); // get volume
+    double getPowerConsumption(); // calculate power
 };
 
 #endif
