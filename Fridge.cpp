@@ -1,7 +1,7 @@
 #include "Fridge.h"
 
 Fridge::Fridge() {
-    volume = 0;
+    volume = 0; // set volume to 0
 }
 
 Fridge::Fridge(int powerRating, double volume) : Appliance(powerRating) {
@@ -16,7 +16,8 @@ double Fridge::getVolume() {
     return volume;
 }
 
+// calculate power consumption using formula
 double Fridge::getPowerConsumption() {
-    double power = get_powerRating() * 24.0 * (volume / 100.0);
+    double power = get_powerRating() * 24.0 * (volume / 100.0); // formula from worksheet
     return power;
 }
