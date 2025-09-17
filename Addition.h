@@ -1,8 +1,6 @@
-// A simple class that provides an add function
+#pragma once
+// simple adder
 class Addition {
 public:
-    // Function that returns the sum of two integers
-    int add(int lhs, int rhs) {
-        return lhs + rhs;
-    }
+    int add(int lhs, int rhs) { return lhs + rhs; }
 };
