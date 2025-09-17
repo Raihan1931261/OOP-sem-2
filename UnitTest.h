@@ -1,13 +1,16 @@
 #include <iostream>
 #include "Addition.h"
 
+// A test class to check whether Addition class works correctly
 class UnitTest {
 public:
+    // Public function that runs all test cases
     void runTests() {
         testAddition();
     }
 
 private:
+    // Private function to test Addition::add
     void testAddition() {
         Addition addition;
 
@@ -15,7 +18,6 @@ private:
             std::cout << "Test 1 failed!" << std::endl;
         }
 
-        // Add more tests here
         if (addition.add(-1, -1) != -2) {
             std::cout << "Test 2 failed!" << std::endl;
         }
