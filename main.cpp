@@ -2,19 +2,9 @@
 #include "EquivalenceTests.h"
 #include "InvoiceTest.h"
 
-// Entry point of the program
 int main() {
-    // Run Addition tests
-    UnitTest unittest;
-    unittest.runTests();
-
-    // Run equivalence class tests
-    EquivalenceTests equivalenceTests;
-    equivalenceTests.runTests();
-
-    // Run Invoice class tests
-    InvoiceTest invoiceTest;
-    invoiceTest.runTests();
-
+    UnitTest u; u.runTests();
+    EquivalenceTests e; e.runTests();
+    InvoiceTest i; i.runTests();
     return 0;
 }
