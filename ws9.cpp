@@ -2,7 +2,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
-#include <cstdlib>  // for atoi
+#include <stdexcept>
 
 using namespace std;
 
@@ -10,48 +10,63 @@ typedef vector<int> Records;
 
 class RecordsManager {
 private:
+    fstream _file;
     string _filename;
 
 public:
     RecordsManager(string filename) : _filename(filename) {}
 
     void read(Records &records) {
-        ifstream file(_filename);
-        if (!file.is_open()) {
-            cerr << "Error: could not open file " << _filename << endl;
-            return;
+        try {
+            _file.open(_filename, ios::in);
+            if (!_file.is_open()) {
+                throw runtime_error("Unable to open file");
+            }
+
+            string line;
+            while (getline(_file, line)) {
+                try {
+                    int value = stoi(line);
+                    records.push_back(value);
+                } catch (const invalid_argument &e) {
+                    cout << "invalid_argument error" << endl;
+                    throw;
+                } catch (const out_of_range &e) {
+                    cout << "out_of_range error" << endl;
+                    throw;
+                }
+            }
+
+        } catch (...) {
+            if (_file.is_open()) {
+                _file.close();
+            }
+            throw;
         }
 
-        string line;
-        while (getline(file, line)) {
-            try {
-                int value = stoi(line);
-                records.push_back(value);
-            } catch (...) {
-                cerr << "Skipping invalid record: " << line << endl;
-            }
+        if (_file.is_open()) {
+            _file.close();
         }
-        file.close();
     }
 };
 
 int main(int argc, char* argv[]) {
-    if (argc < 2) {
-        cout << "Usage: " << argv[0] << " <filename>" << endl;
-        return 1;
-    }
-
     Records myRecords;
-    string filename = argv[1];
+    string filename = "records.txt";
+    if (argc > 1) filename = argv[1];
 
     RecordsManager recordM(filename);
-    recordM.read(myRecords);
 
-    int sum = 0;
-    for (int val : myRecords) {
-        sum += val;
+    try {
+        recordM.read(myRecords);
+        int sum = 0;
+        for (int i = 0; i < myRecords.size(); i++) {
+            sum += myRecords[i];
+        }
+        cout << sum << endl;
+    } catch (const exception &e) {
+        cerr << e.what() << endl;
     }
 
-    cout << "Sum of valid records = " << sum << endl;
     return 0;
 }
