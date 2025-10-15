@@ -4,11 +4,9 @@
 #include "Player.h"
 #include <iostream>
 
-// What a player can do each turn
-enum class ActionType { LIGHTATTACK, HEAVYATTACK, BLOCK };
-
-// State of a single game
-enum class GameState { PLAYING, PLAYER1_WON, PLAYER2_WON, DRAW };
+// Unscoped so tests can use LIGHTATTACK / PLAYING directly
+enum ActionType { LIGHTATTACK, HEAVYATTACK, BLOCK };
+enum GameState  { PLAYING, PLAYER1_WON, PLAYER2_WON, DRAW };
 
 class BattleGame {
 private:
@@ -16,13 +14,13 @@ private:
     Player    player2;
     GameState currentState;
 
-    // Shared across ALL BattleGame instances
+    // shared across ALL BattleGame instances
     static int totalGamesPlayed;
     static int totalDamageDealt;
     static int player1Wins;
     static int player2Wins;
 
-    // Helpers
+    // helpers
     int  calculateDamage(ActionType action);
     void resolveAttacks(ActionType p1Move, ActionType p2Move);
     void updateGameState();
