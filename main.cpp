@@ -6,12 +6,12 @@ int main() {
 
     GameInterface::displayWelcome();
 
-    // allow multiple full games
+    // Outer loop: allow multiple games
     while (true) {
         BattleGame game(p1Name, p2Name);
 
-        // turns keep running while game is PLAYING
-        while (game.getGameState() == GameState::PLAYING) {
+        // Inner loop: keep taking turns while game is PLAYING
+        while (game.getGameState() == PLAYING) {
             ActionType p1Move = GameInterface::getPlayerAction(p1Name);
             ActionType p2Move = GameInterface::getPlayerAction(p2Name);
 
@@ -21,11 +21,11 @@ int main() {
         }
 
         GameInterface::displayWinner(game.getGameState(), p1Name, p2Name);
-        BattleGame::displayStatistics(); // static
+        BattleGame::displayStatistics(); // static: no instance needed
 
         if (!GameInterface::askPlayAgain()) break;
     }
 
-    std::cout << "\nThanks for playing!" << std::endl;
+    std::cout << "\nThanks for playing!\n";
     return 0;
 }
