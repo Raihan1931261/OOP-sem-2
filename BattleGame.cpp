@@ -1,30 +1,27 @@
 #include "BattleGame.h"
 #include <utility>
 
-// --- define static members ---
 int BattleGame::totalGamesPlayed = 0;
 int BattleGame::totalDamageDealt = 0;
 int BattleGame::player1Wins      = 0;
 int BattleGame::player2Wins      = 0;
 
-// --- ctor ---
 BattleGame::BattleGame(std::string p1Name, std::string p2Name)
     : player1(std::move(p1Name)),
       player2(std::move(p2Name)),
-      currentState(GameState::PLAYING) {}
+      currentState(PLAYING) {}
 
 int BattleGame::calculateDamage(ActionType action) {
     switch (action) {
-        case ActionType::LIGHTATTACK: return 15;
-        case ActionType::HEAVYATTACK: return 30;
-        case ActionType::BLOCK:       default: return 0;
+        case LIGHTATTACK: return 15;
+        case HEAVYATTACK: return 30;
+        case BLOCK: default: return 0;
     }
 }
 
 void BattleGame::resolveAttacks(ActionType p1Move, ActionType p2Move) {
-    // set blocking flags first
-    player1.setBlocking(p1Move == ActionType::BLOCK);
-    player2.setBlocking(p2Move == ActionType::BLOCK);
+    player1.setBlocking(p1Move == BLOCK);
+    player2.setBlocking(p2Move == BLOCK);
 
     int d1 = calculateDamage(p1Move);
     int d2 = calculateDamage(p2Move);
@@ -34,22 +31,22 @@ void BattleGame::resolveAttacks(ActionType p1Move, ActionType p2Move) {
 }
 
 void BattleGame::updateGameState() {
-    const bool p1Alive = player1.isAlive();
-    const bool p2Alive = player2.isAlive();
+    bool p1Alive = player1.isAlive();
+    bool p2Alive = player2.isAlive();
 
     if (!p1Alive && !p2Alive) {
-        currentState = GameState::DRAW;
+        currentState = DRAW;
         ++totalGamesPlayed;
     } else if (!p2Alive) {
-        currentState = GameState::PLAYER1_WON;
+        currentState = PLAYER1_WON;
         ++player1Wins;
         ++totalGamesPlayed;
     } else if (!p1Alive) {
-        currentState = GameState::PLAYER2_WON;
+        currentState = PLAYER2_WON;
         ++player2Wins;
         ++totalGamesPlayed;
     } else {
-        currentState = GameState::PLAYING;
+        currentState = PLAYING;
     }
 }
 
@@ -62,7 +59,7 @@ void BattleGame::displayStatus() const {
     std::cout << "\n=== Battle Status ===\n";
     std::cout << player1.getName() << " HP: " << player1.getHealth() << "\n";
     std::cout << player2.getName() << " HP: " << player2.getHealth() << "\n";
-    std::cout << "=====================\n\n";
+    std::cout << "=====================\n";
 }
 
 GameState BattleGame::getGameState() const { return currentState; }
@@ -73,7 +70,7 @@ void BattleGame::displayStatistics() {
     std::cout << "Total Damage Dealt: " << totalDamageDealt << "\n";
     std::cout << "Player 1 Wins: "      << player1Wins      << "\n";
     std::cout << "Player 2 Wins: "      << player2Wins      << "\n";
-    std::cout << "=======================\n\n";
+    std::cout << "=======================\n";
 }
 
 int BattleGame::getTotalGamesPlayed() { return totalGamesPlayed; }
