@@ -5,17 +5,16 @@
 
 class Player {
 private:
-    std::string name;   // Name of the player
-    int health;         // Current HP (starts at 100)
-    bool isBlocking;    // Whether player is blocking this turn
+    std::string name;   // player name
+    int health;         // starts at 100
+    bool isBlocking;    // true only for the next incoming hit
 
 public:
     explicit Player(std::string name);
 
     void takeDamage(int damage);
-
-    // Setters / Getters
     void setBlocking(bool blocking);
+
     bool getIsBlocking() const;
     int getHealth() const;
     std::string getName() const;
